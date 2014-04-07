@@ -1,7 +1,12 @@
-# JsToolkit
+# JS Toolkit
 [![Build Status](https://travis-ci.org/vinsonchuong/js_toolkit.png?branch=master)](https://travis-ci.org/vinsonchuong/js_toolkit)
 [![Dependency Status](https://gemnasium.com/vinsonchuong/js_toolkit.png)](https://gemnasium.com/vinsonchuong/js_toolkit)
 [![Code Climate](https://codeclimate.com/github/vinsonchuong/js_toolkit.png)](https://codeclimate.com/github/vinsonchuong/js_toolkit)
+
+An example app to showcase useful UI patterns drawn from daily development.
+We try to utilize raw DOM as much as possible and minimize external
+dependencies so that these patterns can be dropped into any project, regardless
+of existing frameworks.
 
 ## Development
 ### Getting Started
@@ -40,7 +45,7 @@ foreman start
 
 ## License
 ```
-Copyright (c) 2014 Vinson Chuong
+Copyright (c) 2014 Vinson Chuong and Charles Hansen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
