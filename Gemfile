@@ -13,6 +13,7 @@ gem 'uglifier'
 gem 'handlebars_assets'
 gem 'jquery-rails'
 gem 'lodash-rails'
+gem 'backbone-rails'
 
 gem 'sass-rails'
 

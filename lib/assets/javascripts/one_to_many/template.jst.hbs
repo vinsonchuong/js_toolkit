@@ -1,0 +1,12 @@
+<h1>One View, Multiple Elements</h1>
+
+{{#types}}
+  <div data-type="{{type}}">
+    <ul>
+      {{#values}}
+        <li data-id="{{id}}"><label><input type="checkbox"{{#if checked}} checked{{/if}}>{{name}}</label></li>
+      {{/values}}
+    </ul>
+    <span>{{checked}}/{{values.length}} Checked</span>
+  </div>
+{{/types}}
