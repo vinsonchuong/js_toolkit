@@ -33,7 +33,13 @@
     },
 
     presenter: function() {
-      return {model: _.result(this.model, 'toJSON')};
+      return this.resource ? {resource: _.result(this.resource, 'toJSON')} :
+             this.resources ? {
+               resources: _.map(this.resources, function(collection, type) {
+                 return {type: type, values: collection.toJSON()};
+               })
+             } :
+             {};
     },
 
     delegateEvents: function() {
