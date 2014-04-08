@@ -10,6 +10,11 @@
         if (!_.has(obj, key)) { obj[key] = {}; }
         return obj[key];
       }, obj);
+    },
+
+    eachWithObject: function(list, callback, obj, context) {
+      _.each(list, _.bind(callback, context, obj));
+      return obj;
     }
   });
 }).call(this);

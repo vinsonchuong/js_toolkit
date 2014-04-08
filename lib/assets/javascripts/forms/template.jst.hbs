@@ -1,0 +1,18 @@
+<h1>Form View</h1>
+
+{{#types}}
+  <ul data-type="{{type}}">
+    {{#values}}
+      <li>
+        <form data-id="{{id}}" onsubmit="event.preventDefault()">
+          <input type="checkbox" name="checked" data-type="boolean"{{#checked}} checked{{/checked}}>
+          <label>Name: <input type="text" value="{{name}}" name="name"></label>
+          <label>Description: <textarea name="description">{{description}}</textarea></label>
+          <label>Score: <input type="range" min="0" max="10" step="1" name="score" data-type="number" value="{{score}}"></label>
+            <label>Tags: <textarea name="tags" data-type="string[\s*,\s*]">{{join tags ", "}}</textarea></label>
+          <input type="submit" value="Save">
+        </form>
+      </li>
+    {{/values}}
+  </ul>
+{{/types}}

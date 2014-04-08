@@ -12,12 +12,12 @@ describe('one to many', function() {
   });
 
   it('renders the collections', function() {
-    expect('[data-type="foo"] [data-id="1"]').toHaveText('Foo 1');
-    expect('[data-type="foo"] [data-id="2"]').toHaveText('Foo 2');
+    expect('[data-type="foo"] [data-id="1"]').toContainText('Foo 1');
+    expect('[data-type="foo"] [data-id="2"]').toContainText('Foo 2');
     expect('[data-type="foo"]').toContainText('0/2 Checked');
 
-    expect('[data-type="bar"] [data-id="1"]').toHaveText('Bar 1');
-    expect('[data-type="bar"] [data-id="2"]').toHaveText('Bar 2');
+    expect('[data-type="bar"] [data-id="1"]').toContainText('Bar 1');
+    expect('[data-type="bar"] [data-id="2"]').toContainText('Bar 2');
     expect('[data-type="bar"]').toContainText('0/2 Checked');
   });
 

@@ -4,7 +4,13 @@
   <div data-type="{{type}}">
     <ul>
       {{#values}}
-        <li data-id="{{id}}"><label><input type="checkbox"{{#if checked}} checked{{/if}}>{{name}}</label></li>
+        <li data-id="{{id}}">
+          <input type="checkbox"{{#if checked}} checked{{/if}}>
+          {{name}}
+          description: {{description}}
+          score: {{score}}
+          tags: {{#tags}}<span class="tag">{{.}}</span> {{/tags}}
+        </li>
       {{/values}}
     </ul>
     <span>{{checked}}/{{values.length}} Checked</span>

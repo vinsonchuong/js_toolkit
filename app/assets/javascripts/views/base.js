@@ -7,7 +7,18 @@
   'use strict';
   var exports = this,
     _ = exports._,
-    Backbone = exports.Backbone;
+    $ = exports.$,
+    Backbone = exports.Backbone,
+    Handlebars = exports.Handlebars;
+
+  function transform(fn) {
+    return function(callback) {
+      return function() {
+        var e = _.last(arguments);
+        callback.apply(this, Array.prototype.slice.call(arguments, 0, -1).concat(fn.call(this, e), e));
+      };
+    };
+  }
 
   var Base = Backbone.View.extend({
     initialize: function(options) {
@@ -30,6 +41,7 @@
 
     render: function() {
       this.$el.html(JST[this.template](this.presenter()));
+      return this;
     },
 
     presenter: function() {
@@ -69,20 +81,41 @@
       });
     }
   }, {
-    withResource: function(callback) {
-      return function(e) {
-        var type = $(e.currentTarget).closest('[data-type]').data('type'),
-            id = $(e.currentTarget).closest('[data-id]').data('id');
+    withResource: transform(function(e) {
+      var type = $(e.currentTarget).closest('[data-type]').data('type'),
+          id = $(e.currentTarget).closest('[data-id]').data('id');
 
-        var resource =
-          this.resource instanceof Backbone.Model ? this.resource :
-          this.resource instanceof Backbone.Collection ? this.resource.get(id) :
-          this.resources && id ? this.resources[type].get(id) :
-          this.resources[type];
+      return this.resource instanceof Backbone.Model ? this.resource :
+             this.resource instanceof Backbone.Collection ? this.resource.get(id) :
+             this.resources && id ? this.resources[type].get(id) :
+             this.resources[type];
+    }),
 
-        callback(resource, e)
-      }
-    }
+    withFormData: transform(function(e) {
+      var CONVERTER = {
+        string: String,
+        number: Number,
+        boolean: Boolean,
+        integer: Math.floor,
+        float: parseFloat
+      };
+
+      var $form = $(e.currentTarget);
+      return _.eachWithObject($form.serializeArray(), function(result, item) {
+        var $field = $form.find('[name="'+item.name+'"]'),
+            match = ($field.data('type') || 'string').match(/^([a-z]+)(?:\[([\s\S]*)\]|)$/),
+            type = match[1],
+            separator = match[2],
+            value = _.isUndefined(separator) ? item.value : item.value.split(RegExp(separator) || '\n'),
+            converter = CONVERTER[type] || String
+          ;
+        result[item.name] = _.isArray(value) ? value.map(converter) : converter(value);
+      }, {});
+    })
+  });
+
+  Handlebars.registerHelper('join', function(array, string) {
+    return _.isArray(array) && array.join(string);
   });
 
   _.namespace(exports, 'app.views').Base = Base;
