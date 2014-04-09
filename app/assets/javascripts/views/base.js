@@ -11,6 +11,18 @@
     Backbone = exports.Backbone,
     Handlebars = exports.Handlebars;
 
+  var DOM_EVENTS = [
+    'blur', 'canplay', 'canplaythrough', 'change', 'click', 'contextmenu',
+    'copy', 'cut', 'dblclick', 'drag', 'dragend', 'dragenter', 'dragleave',
+    'dragover', 'dragstart', 'drop', 'durationchange', 'emptied', 'ended',
+    'focus', 'input', 'invalid', 'keydown', 'keypress', 'keyup', 'loadeddata',
+    'loadedmetadata', 'mousedown', 'mouseenter', 'mouseleave', 'mousemove',
+    'mouseout', 'mouseover', 'mouseup', 'paste', 'pause', 'play', 'playing',
+    'ratechange', 'reset', 'scroll', 'seeked', 'seeking', 'select', 'show',
+    'stalled', 'submit', 'suspend', 'timeupdate', 'volumechange', 'waiting',
+    'wheel'
+  ];
+
   function transform(fn) {
     return function(callback) {
       return function() {
@@ -72,7 +84,11 @@
             callback = _.bind(self[callback] || callback, self);
             if (target === self.$el || target === self.el) {
               var match = event.match(/(\S+)\s(.+)/);
-              self.$el.on(match[1], match[2], callback);
+              if (match) {
+                self.$el.on(match[1] === 'all' ? DOM_EVENTS.join(' ') : match[1], match[2], callback);
+              } else {
+                self.$el.on(event === 'all' ? DOM_EVENTS.join(' ') : event, callback);
+              }
             } else {
               self.listenTo(target, event, callback);
             }
