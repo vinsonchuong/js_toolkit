@@ -3,12 +3,12 @@
 {{#resources}}
   <div class="dropdown" data-type="{{type}}">
     <button class="dropdown-launcher">Please Choose a {{type}}</button>
-    <template class="dropdown-content">
+    <div class="dropdown-content">
       <ul>
         {{#values}}
           <li data-id="{{id}}">{{name}}</li>
         {{/values}}
       </ul>
-    </template>
+    </div>
   </div>
 {{/resources}}

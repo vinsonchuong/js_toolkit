@@ -1,6 +1,10 @@
 .dropdown {
   display: inline-block;
   margin-bottom: 100px;
+
+  .dropdown-content {
+    display: none;
+  }
 }
 
 .dropdown-menu-container {
